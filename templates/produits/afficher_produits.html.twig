@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Afficher Produits
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row bg-white p-3">
+			<div class="col-md-3 col-sm-12">
+				<h2 class="text-info">RECHERCHER</h2>
+
+				<form class="mt-5" action="{{path("app_produit_categorie")}}" method="post">
+					<label for="categorie">Rechercher par catégorie</label>
+					<select class="form-control" id="categorie" name="categorie_id">
+						{% for categorie in categories %}
+							<option value="{{ categorie.id }}">{{ categorie.name }}</option>
+						{% endfor %}
+					</select>
+					<button type="submit" class="btn btn-success mt-3">Rechercher</button>
+				</form>
+
+				<hr>
+				<form class="mt-5" action="{{path("app_produit_distributeur")}}" method="post">
+					<label for="distributeur">Rechercher par distribiteur</label>
+					<select class="form-control" id="distributeur" name="distribiteur_id">
+						{% for distributeur in distributeurs %}
+							<option value="{{ distributeur.id }}">{{ distributeur.name }}</option>
+						{% endfor %}
+					</select>
+					<button type="submit" class="btn btn-success mt-3">Rechercher</button>
+				</form>
+
+
+			</div>
+			<div class="col-md-8 col-sm-12">
+
+				<div class="text-center">
+					<h2 class="text-warning">VOS PRODUITS</h2>
+					<a href="{{path('app_ajouter_produit')}}" class="btn btn-info">Ajouter un produit</a>
+				</div>
+				<div class="row">
+					{% for produit in produits %}
+						<div class="col-md-3 col-sm-12 mt-5">
+							<div class="card h-100 mt-3">
+								<div class="card-header text-center">
+									<img src="{{ asset(produit.image) }}" title="" class="img-fluid mt-3" width="100%" alt=""/>
+								</div>
+								<div class="card-body">
+
+									<h5 class="text-success">Catégories :
+										{{produit.categorie.name}}</h5>
+									<ul class="list-group">
+										<h4 class="text-warning">Liste des ditributeurs :
+										</h4>
+										{% for distributeur in produit.distributeur %}
+											<li class="list-group-item">{{ distributeur.name }}</li>
+										{% endfor %}
+									</ul>
+										<h6 class="text-danger mt-3">Référence du produit :
+											{{produit.reference.name}}</h6>
+									<hr>
+										<time datetime="2020-03-16" class="text-success">Posté le :
+											{{produit.createdAt|date('d/m/y')}}
+											à :
+											{{produit.createdAt|date('h:i:s')}}</time>
+									<hr>
+										<p class="text-info">Prix :
+											{{produit.price}}
+											€</p>
+										<a href="{{path('app_details_produit', {id: produit.id})}}" class="btn btn-warning">
+											Détails du produit
+										</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	{% endblock %}

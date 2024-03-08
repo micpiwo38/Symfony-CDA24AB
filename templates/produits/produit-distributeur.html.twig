@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits par catégorie
+{% endblock %}
+
+{% block body %}
+
+    {{dump(produits)}}
+
+    {% for produit in produits %}
+        <div class="container bg-white p-3 mt-3">
+
+        <div class="card-header text-center">
+            <img src="{{ asset(produit.image) }}" title="" class="img-fluid mt-3" width="30%" alt=""/>
+        </div>
+        <h5 class="text-success">Distributeur :
+
+        <ul class="list-group">
+            <h4 class="text-warning">Liste des ditributeurs :
+            </h4>
+            {% for distributeur in produit.distributeur %}
+                <li class="list-group-item">{{ distributeur.name }}</li>
+            {% endfor %}
+        </ul>
+        <h6 class="text-danger mt-3">Référence du produit :
+            {{produit.reference.name}}</h6>
+        <time datetime="2020-03-16" class="">Posté le :
+            {{produit.createdAt|date('d/m/y')}}
+            à :
+            {{produit.createdAt|date('h:i:s')}}</time>
+        <p class="text-info">Prix :
+            {{produit.price}}
+            €</p>
+        <a href="{{path('app_details_produit', {id: produit.id})}}" class="btn btn-warning">Détails du produit</a>
+        <a href="{{ path('app_produits') }}" class="btn btn-danger">Retour</a>
+    {% endfor %}
+
+{% endblock %}

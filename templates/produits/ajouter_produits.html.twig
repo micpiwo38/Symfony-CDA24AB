@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter Produits
+{% endblock %}
+
+{% block body %}
+<div class="container w-50 shadow rounded mx-auto mt-5 p-3">
+	<h1 class="text-center text-warning">Ajouter un produit</h1>
+
+</div>
+
+<div class="row bg-white p-3">
+
+	{% for flash_message in app.flashes('danger') %}
+		<div class="alert alert-danger alert-dismissible fade show p-3 w-50 mx-auto mt-3" role="alert">
+			{{ flash_message }}
+			<button type=" button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+
+	{{form_start(produits_form)}}
+	{{form_row(produits_form._token)}}
+	{{form_errors(produits_form)}}
+
+	{{form_row(produits_form.name)}}
+	{{form_row(produits_form.slug)}}
+	{{form_row(produits_form.reference)}}
+	{{form_row(produits_form.categorie)}}
+
+
+	{{form_row(produits_form.description)}}
+	{{form_row(produits_form.distributeur)}}
+	{{form_row(produits_form.price)}}
+	{{form_row(produits_form.image)}}
+
+
+	<button type="submit" class="btn btn-success mt-3">Ajouter le produit</button>
+	<a href="{{ path('app_produits') }}" class="btn btn-danger mt-3">Retour</a>
+	{{form_end(produits_form)}}
+
+</div>
+
+<!--Si tous les champs ne sont pas afficher-->
+
+
+{%endblock%}
