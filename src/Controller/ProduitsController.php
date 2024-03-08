@@ -153,10 +153,10 @@ class ProduitsController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Produits $produits, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($product);
+        if ($this->isCsrfTokenValid('delete'.$produits->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($produits);
             $entityManager->flush();
         }
 
